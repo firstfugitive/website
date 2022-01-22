@@ -1,0 +1,8 @@
+@import "assets/css/variables";
+@import "assets/css/placeholder";
+@import "assets/css/foundation";
+@import "assets/css/module-spacings";
+
+.module {
+  @extend %module-spacing;
+}

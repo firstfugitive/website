@@ -1,0 +1,86 @@
+@import "variables";
+
+%borderRadius {
+  border-radius: 50px;
+}
+
+%boxShadow {
+  box-shadow: 0 5px 12px 1px rgba(0,0,0,0.07);
+}
+
+%fontGotham {
+  font-family: "iCiel Medium", "Arial";
+  letter-spacing: 2.5px;
+  line-height: 2rem;
+  @include mb-up($tablet-min) {
+    line-height: 2.2rem;
+  }
+  @include mb-up($desktop-min) {
+    line-height: 2.8rem;
+  }
+}
+
+%fontStandard {
+  font-size: 0.9rem;
+  @include mb-up($tablet-min) {
+    font-size: 1.1rem;
+  }
+  @include mb-up($desktop-min) {
+    font-size: 1.25rem;
+  }
+}
+
+%fontBig {
+  font-size: 1.25rem;
+  @include mb-up($tablet-min) {
+    font-size: 1.5rem;
+  }
+  @include mb-up($desktop-min) {
+    font-size: 1.7rem;
+  }
+}
+
+%fontVeryBig {
+  font-size: 1.6rem;
+  @include mb-up($tablet-min) {
+    font-size: 2rem;
+  }
+  @include mb-up($desktop-min) {
+    font-size: 2.5rem;
+  }
+}
+
+%teaserCard {
+  transition: box-shadow 200ms;
+  text-decoration: none;
+
+  &:hover {
+    box-shadow: 0 5px 12px 1px rgb(0 0 0 / 20%);
+  }
+}
+
+%link {
+  font-size: 1.125rem;
+  line-height: 1.1em;
+  color: $color-design-blue;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @include mb-up($desktop-min) {
+    font-size: 1.25rem;
+  }
+}
+
+%module-spacing {
+  margin: 3rem auto;
+  max-width: var(--module-max-content-width);
+
+  
+  @include mb-up($desktop-min) {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+}
