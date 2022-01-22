@@ -5,8 +5,10 @@
 <script>
 //import Contentful from "./plugins/contentful.js";
 import { createClient } from "contentful";
+import { useRoute } from 'vue-router';
 
-
+const route = useRoute();  
+console.log("ROUTE", route)
 //console.log("CTX", useRoute())
 
 const client = createClient({
@@ -36,6 +38,7 @@ export default {
     } */
       //console.log("CTX", useRequestHeaders())
     
+    
     const { data } = await useAsyncData('fetchEntries', 
       (ctx) => client.getEntries({
       content_type: 'page',
@@ -50,7 +53,7 @@ export default {
     };
   },
   mounted() {
-    console.log("ROUTE", this)
+    console.log("ROUTE", window.location.href)
   }
 }
 </script>
