@@ -5,10 +5,9 @@
 <script>
 //import Contentful from "./plugins/contentful.js";
 import { createClient } from "contentful";
-import { useRoute } from 'vue-router';
+import { useBody, useCookies, useQuery } from 'h3'
 
-const route = useRoute();  
-console.log("ROUTE", route)
+
 //console.log("CTX", useRoute())
 
 const client = createClient({
@@ -37,7 +36,8 @@ export default {
       console.info('SLUG', slug);
     } */
       //console.log("CTX", useRequestHeaders())
-    
+    //console.log("CTX", useRequestHeaders())
+    console.log("CTX", useQuery())
     
     const { data } = await useAsyncData('fetchEntries', 
       (ctx) => client.getEntries({
