@@ -1,11 +1,16 @@
 <template>
-  <h1>Hello world!</h1>
+  <div>
+    <h1>Hello world!</h1>
+    <pre>{{ slug }}</pre>
+    <pre>{{ urlSubfolder }}</pre>
+  </div>
 </template>
 
 <script>
 //import Contentful from "./plugins/contentful.js";
 import { createClient } from "contentful";
 import { useBody, useCookies, useQuery } from 'h3'
+import { useRoute } from 'vue-router'
 
 
 //console.log("CTX", useRoute())
@@ -37,23 +42,34 @@ export default {
     } */
       //console.log("CTX", useRequestHeaders())
     //console.log("CTX", useRequestHeaders())
-    console.log("CTX", useQuery())
-    
+    //console.log("CTX", useQuery())
+    const { path, params, query } = useRoute();
+    let pathParts = params?.slug ? params.slug : [];
+    let slug = pathParts[pathParts.length -1];
+    let urlSubfolder = path.substr(0, path.lastIndexOf(slug)) || '/';
+    slug = slug || 'index';
+
+
     const { data } = await useAsyncData('fetchEntries', 
-      (ctx) => client.getEntries({
+      () => client.getEntries({
       content_type: 'page',
-      'fields.slug': "home",
+      'fields.slug': slug,
       include: 6
     }).then((response) => {
       return response.items[0]
     }))
+
+    //const { data } = await useAsyncData('test', () => $fetch('/api/hello'))
+
+
     return {
-      hello: "world",
-      data
+      data,
+      slug,
+      urlSubfolder
     };
   },
   mounted() {
-    console.log("ROUTE", window.location.href)
+    //console.log("ROUTE", window.location.href)
   }
 }
 </script>

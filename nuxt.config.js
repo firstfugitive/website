@@ -50,7 +50,7 @@ export default defineNuxtConfig({
   build: {
   },
 
-  serverMiddleware: [
+  /* serverMiddleware: [
     { path: '/server-middleware', handler: '~/middleware/index.js' }
-  ]
+  ] */
 })
