@@ -1,30 +1,43 @@
 <template>
   <div>
+    <!-- <page-header :data="headerObject"></page-header>
     <h1>Hello world!</h1>
     <pre>{{ slug }}</pre>
     <pre>{{ urlSubfolder }}</pre>
+    <page-footer :data="footerObject"></page-footer>
+     -->
+    <component
+      :is="contentType"
+      :data="pageContent"
+      :standardPageConfig="standardPageConfig"
+    />
   </div>
 </template>
 
 <script>
 //import Contentful from "./plugins/contentful.js";
 import { createClient } from "contentful";
-import { useBody, useCookies, useQuery } from 'h3'
+//import { contentfulConfig } from "../plugins/contentful.js";
+//import { useBody, useCookies, useQuery } from 'h3'
 import { useRoute } from 'vue-router'
+import PageFooter from '../components/organism/PageFooter.vue'
+import PageHeader from '../components/organism/PageHeader.vue'
 
 
 //console.log("CTX", useRoute())
 
 const client = createClient({
   space: 'dbcppdxw8bib',
-  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',/* preview, cdn */
+  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',
   host: 'cdn.contentful.com',
   environment: 'master'
 });
+//const client = createClient(contentfulConfig);
 
 
 export default {
   name: "Page",
+  components: { PageFooter, PageHeader },
   async setup(props, ctx) {
     /* console.log("CTX", ctx)
     console.log("hello", "world")
@@ -50,14 +63,40 @@ export default {
     slug = slug || 'index';
 
 
-    const { data } = await useAsyncData('fetchEntries', 
+    /* let { data: pageObject } = await useAsyncData('pageObject', 
+      () => {
+        return client.getEntries({
+          content_type: 'page',
+          'fields.slug': slug,
+          include: 6
+        }).then((response) => response.items[0] )
+      }) */
+    
+    let { data } = await useAsyncData('dataFetch', 
+      () => Promise.all([
+        client.getEntries({
+          content_type: 'page',
+          'fields.slug': slug,
+          include: 6
+        }).then((response) => response.items[0] ),
+          client.getEntries({
+          content_type: 'standardPageConfig',
+          include: 6
+        }).then((response) => response.items[0])
+      ]).then((response) => response)
+    );
+    let pageObject = data[0], standardPageConfig = data[1];
+    /* const { standardPageConfig } = await useAsyncData('fetchEntries', 
       () => client.getEntries({
-      content_type: 'page',
-      'fields.slug': slug,
+          content_type: 'standardPageConfig',
+          include: 6
+        }).then((response) => response.items[0])) */
+
+    //fetch standard page configuration
+    /* let standardPageConfig = await client.getEntries({
+      content_type: 'standardPageConfig',
       include: 6
-    }).then((response) => {
-      return response.items[0]
-    }))
+    }).then((response) => response.items[0]); */
 
     //const { data } = await useAsyncData('test', () => $fetch('/api/hello'))
 
@@ -67,6 +106,29 @@ export default {
       slug,
       urlSubfolder
     };
+  },
+  computed: {
+    pageObject() {
+      return this.data && this.data.length > 0 ? this.data[0] : {};
+    },
+    standardPageConfig() {
+      return this.data && this.data.length > 1 ? this.data[1] : {};
+    },
+    pageContent() {
+      if (!this.pageObject?.fields?.content) {
+        return undefined;
+      }
+      return this.pageObject.fields.content;
+    },
+    contentType() {
+      return this.pageContent?.sys?.contentType?.sys?.id;
+    },
+    footerObject() {
+      return this.standardPageConfig?.fields?.footer;
+    },
+    headerObject() {
+      return this.standardPageConfig?.fields?.header;
+    }
   },
   mounted() {
     //console.log("ROUTE", window.location.href)

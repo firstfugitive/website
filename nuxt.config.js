@@ -28,6 +28,23 @@ export default defineNuxtConfig({
     ]
   },
 
+  components: [
+    {
+      path: '~/components/atom/',
+      watch: true
+    }, {
+      path: '~/components/molecule/',
+      watch: true
+    }, {
+      path: '~/components/organism/',
+      watch: true
+    }, {
+      path: '~/components/pageContent/',
+      prefix: 'page',
+      watch: true
+    }
+  ],
+
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
