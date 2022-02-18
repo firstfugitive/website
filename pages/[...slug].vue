@@ -16,7 +16,8 @@
 
 <script>
 //import Contentful from "./plugins/contentful.js";
-import { createClient } from "contentful";
+import pkg from "contentful";
+const { createClient } = pkg;
 //import { contentfulConfig } from "../plugins/contentful.js";
 //import { useBody, useCookies, useQuery } from 'h3'
 import { useRoute } from 'vue-router'

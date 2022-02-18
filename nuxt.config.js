@@ -2,7 +2,11 @@ import { defineNuxtConfig } from 'nuxt3'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  dev: true,
+  nitro: {
+    preset: 'server'
+  },
+
+  dev: false,
 
   mode: 'universal',
   devtools: true,
@@ -70,4 +74,5 @@ export default defineNuxtConfig({
   /* serverMiddleware: [
     { path: '/server-middleware', handler: '~/middleware/index.js' }
   ] */
+  target: 'server',
 })

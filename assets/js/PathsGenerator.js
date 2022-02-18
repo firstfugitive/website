@@ -1,4 +1,4 @@
-const contentful = require('../../plugins/contentful');
+import { createClient } from "contentful";
 
 const PAGES = {
   'content_type': 'page',
@@ -6,7 +6,7 @@ const PAGES = {
 };
 
 function generatePaths() {
-  return contentful.createClient().getEntries(PAGES)
+  return createClient().getEntries(PAGES)
     .then(extractPages)
     .then(transformPagesToPaths)
     .then(filterIndexPaths)
