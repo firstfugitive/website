@@ -16,8 +16,8 @@
 
 <script>
 //import Contentful from "./plugins/contentful.js";
-import pkg from "contentful";
-const { createClient } = pkg;
+
+
 //import { contentfulConfig } from "../plugins/contentful.js";
 //import { useBody, useCookies, useQuery } from 'h3'
 import { useRoute } from 'vue-router'
@@ -27,13 +27,23 @@ import PageHeader from '../components/organism/PageHeader.vue'
 
 //console.log("CTX", useRoute())
 
+//DEV:
+/* import { createClient } from "contentful";
 const client = createClient({
   space: 'dbcppdxw8bib',
   accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',
   host: 'cdn.contentful.com',
   environment: 'master'
+}); */
+
+//PROD:
+import Contenful from "contentful";
+const client = Contenful.createClient({
+  space: 'dbcppdxw8bib',
+  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',
+  host: 'cdn.contentful.com',
+  environment: 'master'
 });
-//const client = createClient(contentfulConfig);
 
 
 export default {

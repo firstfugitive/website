@@ -2,11 +2,11 @@ import { defineNuxtConfig } from 'nuxt3'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  nitro: {
+  /* nitro: {
     preset: 'server'
-  },
+  }, */
 
-  dev: false,
+  dev: process.env.ENVIRONMENT_IS_DEV ? true : false,
 
   mode: 'universal',
   devtools: true,

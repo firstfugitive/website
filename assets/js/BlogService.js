@@ -1,12 +1,21 @@
-import pkg from "contentful";
-const { createClient } = pkg;
-
+//DEV:
+/* import { createClient } from "contentful";
 const client = createClient({
   space: 'dbcppdxw8bib',
-  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',/* preview, cdn */
+  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',
+  host: 'cdn.contentful.com',
+  environment: 'master'
+}); */
+
+//PROD:
+import Contenful from "contentful";
+const client = Contenful.createClient({
+  space: 'dbcppdxw8bib',
+  accessToken: 'XIOUq8XaCeuhXgblbO1DA2mgHX-uo1bAseK-FZ6jqJQ',
   host: 'cdn.contentful.com',
   environment: 'master'
 });
+
 
 const BlogService = {
   fetchAll
