@@ -7,6 +7,7 @@
     "dev": "nuxi dev --devtools",
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
+    "heroku-postbuild": "nuxi build",
     "preview": "nuxi preview"
   },
   "dependencies": {
