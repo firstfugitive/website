@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nuxi dev --devtools",
     "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "preview": "nuxi preview"
   },
   "dependencies": {
     "@splidejs/vue-splide": "^0.5.18",
